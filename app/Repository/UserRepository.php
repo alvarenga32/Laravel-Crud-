@@ -10,7 +10,7 @@ class UserRepository implements UserInterface
 {
     public function findById($id): User{
         return User::find($id);
-    }
+    } 
 
     public function findAll(): User{
         return User::all();
