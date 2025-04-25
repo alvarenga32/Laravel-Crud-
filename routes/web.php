@@ -7,6 +7,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/alo', function () {
+    return view('users.index');
+});
+
 Route::group(['prefix' => 'api'], function () {
 
     Route::group(['prefix' => 'user'], function () {
