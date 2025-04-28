@@ -22,47 +22,17 @@ class UserController extends Controller
         "email"    => "email",
     ];
 
-    public function findById($id){
 
-        try{
+    public function index(){
 
-            if(empty($id) || $id == ''){
-                throw new Exception('Id informado nao encontrado');
-            }
+            $users = $this->service->findAll();
 
-            return response()->json($this->service->findById($id),200);
-
-        } catch( Exception $e){
-
-            return response()->json(['error' => $e->getMessage()], 422);
-        }
-    }
-
-    public function findAll(){
-
-        try{
-
-            return response()->json($this->service->findAll(),200);
-
-        } catch( Exception $e){
-
-            return response()->json(['error' => $e->getMessage()], 422);
-        }
+            return view("users/index", compact('users'));
     }
 
     public function create(Request $request){
 
         try{
-
-            $errors = ValidationHelper::validateRequest($request, [
-                "name"     => "required",
-                "email"    => "email",
-                "password" => "required|string"
-            ]);
-
-            if(!empty($errors)){
-                throw new Exception($errors);
-            }
 
             return response()->json($this->service->create($request->all()),201);
         
@@ -75,23 +45,8 @@ class UserController extends Controller
     public function update($id,Request $request){
 
         try{
-
-            $errors = ValidationHelper::validateRequest($request, [
-                "name"     => "required",
-                "email"    => "email",
-            ]);
-
-            if(!empty($errors)){
-                throw new Exception($errors);
-            }
-
-            $user = $this->service->findById($id);
-
-            if(!$user){
-                throw new Exception("Usuario informado nao foi localizado");
-            }
             
-            return response()->json($this->service->update($user,$request->all()),200);
+            return response()->json($this->service->update($id,$request->all()),200);
         
         } catch(Exception $e){
 
@@ -104,13 +59,7 @@ class UserController extends Controller
 
         try{
 
-            $user = $this->service->findById($id);
-
-            if(!$user){
-                throw new Exception("Usuario informado nao foi localizado");
-            }
-
-            return response()->json($this->service->delete($user),200);
+            return response()->json($this->service->delete($id),200);
 
         } catch( Exception $e){
 

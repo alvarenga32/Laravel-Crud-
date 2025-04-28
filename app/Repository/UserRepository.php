@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository implements UserInterface
 {
-    public function findById($id): User{
+    public function findById($id): User | Collection{
         return User::find($id);
     } 
 
-    public function findAll(): User{
+    public function findAll(): User | Collection{
         return User::all();
     }
 
     public function create($fillable): User{
-        return User::create([$fillable]);
+        return User::create($fillable);
     }
 
     public function update($user,$fillable): bool{
-        return $user::update([$fillable]);
+        return $user::update($fillable);
     }
 
     public function delete($user): bool{

@@ -10,12 +10,12 @@ interface UserInterface
     /**
      * Busca User por id
      */
-    public function findById($id): User;
+    public function findById($id): User | Collection;
 
     /**
      * Busca todos os Users cadastrados
      */
-    public function findAll(): User;
+    public function findAll(): User | Collection;
 
     /**
      * Cria um novo User
